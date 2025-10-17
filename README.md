@@ -1,8 +1,8 @@
 
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>A.BHAGATHKRISHNA</H3>
+<H3>212223230029</H3>
 <H3>EX. NO.4</H3>
-<H3>DATE:</H3>
+<H3>DATE:30.09.2025</H3>
 <H1 ALIGN =CENTER>Implementation of MLP with Backpropagation for Multiclassification</H1>
 <H3>Aim:</H3>
 To implement a Multilayer Perceptron for Multi classification
@@ -116,11 +116,46 @@ Normalize our dataset.
 
 <H3>Program:</H3> 
 
-Insert your code here
+```python
+import pandas as pd
+import sklearn
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv"
+
+wine_data = pd.read_csv(url, sep=";")
+
+X = wine_data.drop("quality", axis=1)
+y = wine_data["quality"]
+
+le = preprocessing.LabelEncoder()
+y = le.fit_transform(y)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000, random_state=42)
+mlp.fit(X_train, y_train)
+
+predictions = mlp.predict(X_test)
+print("Predictions:", predictions)
+
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, predictions))
+print("\nClassification Report:\n", classification_report(y_test, predictions))
+```
+
 
 <H3>Output:</H3>
+<img width="618" height="493" alt="image" src="https://github.com/user-attachments/assets/e9c02709-8059-40ff-9715-4fd7dccf63dd" />
 
-Show your results here
 
 <H3>Result:</H3>
 Thus, MLP is implemented for multi-classification using python.
